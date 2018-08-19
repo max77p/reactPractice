@@ -7,13 +7,13 @@ class App extends Component {//extends means to inherit from component
   state={
     persons: [
       {
-        name:'Max',age:28
+        id:'dfafds',name:'Max',age:28
       },
       {
-        name:'Ma',age:20
+        id:'adfsa',name:'Ma',age:20
       },
       {
-        name:'M',age:2
+        id:'adfsv',name:'M',age:2
       }
      
     ],
@@ -23,18 +23,22 @@ class App extends Component {//extends means to inherit from component
 
 
 
-  nameChangedHandler=(event)=>{
-    this.setState({ persons: [
-      {
-        name:"max",age:28
-      },
-      {
-        name:event.target.value,age:20
-      },
-      {
-        name:'Moses',age:27
-      }
-    ]})
+  nameChangedHandler=(event,id)=>{
+    const personIndex = this.state.persons.findIndex(p=>{
+      return p.id === id;
+    });
+    console.log(personIndex);
+    const person={
+     ...this.state.persons[personIndex]// spread operator distributes all the props in this object
+    }
+    console.log(persons);
+
+    person.name=event.target.value;
+
+    const persons=[...this.state.persons];
+    persons[personIndex]=person;
+
+    this.setState({ persons:persons});
   }
 
   deletePersonHandler=(personIndex)=>{
@@ -66,7 +70,9 @@ this.setState({showPersons: !doesShow})
                       return <Person 
                       click={()=>this.deletePersonHandler(index)}
                       name={person.name} 
-                      age={person.age}/>
+                      age={person.age}
+                      key={person.id}
+                      changed={(event)=>this.nameChangedHandler(event,person.id)}/>
                     })}
                     {/* <Person 
                     name={this.state.persons[0].name} 
