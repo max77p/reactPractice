@@ -17,7 +17,8 @@ class App extends Component {//extends means to inherit from component
       }
      
     ],
-    otherState:'some other value' 
+    otherState:'some other value' ,
+    showPersons:false
   } //state managed from inside a component
 
   switchNameHandler=(newName)=>{
@@ -48,6 +49,14 @@ class App extends Component {//extends means to inherit from component
       }
     ]})
   }
+
+
+togglePerson=()=>{
+const doesShow=this.state.showPersons;
+this.setState({showPersons: !doesShow})
+}
+
+
   render() {
     const style={
       backgroundColor: 'white',
@@ -55,23 +64,33 @@ class App extends Component {//extends means to inherit from component
       border:'1px solid blue',
       padding:'8px'
     };
+
+    let persons=null;
+
+    if(this.state.showPersons){
+        persons = (
+                  <div>
+                    <Person 
+                    name={this.state.persons[0].name} 
+                    age={this.state.persons[0].age}/>
+                    <Person 
+                    name={this.state.persons[1].name} 
+                    age={this.state.persons[1].age}
+                    click={this.switchNameHandler.bind(this,'maxisguy')}
+                    changed={this.nameChangedHandler}>My hobbies: Racing</Person>
+                    <Person 
+                    name={this.state.persons[2].name} 
+                    age={this.state.persons[2].age}/>
+              </div>
+        )
+    }
     return (
       <div className="App">
        <h1>Hi, Im a react dev</h1>
        <h1>another heading</h1>
        <button  style={style}
-       onClick={()=>this.switchNameHandler('percyyay')}>swtich Name</button>
-       <Person 
-       name={this.state.persons[0].name} 
-       age={this.state.persons[0].age}/>
-       <Person 
-       name={this.state.persons[1].name} 
-       age={this.state.persons[1].age}
-       click={this.switchNameHandler.bind(this,'maxisguy')}
-       changed={this.nameChangedHandler}>My hobbies: Racing</Person>
-       <Person 
-       name={this.state.persons[2].name} 
-       age={this.state.persons[2].age}/>
+       onClick={this.togglePerson}>swtich Name</button>
+      {persons}
       </div>
     );
   }
