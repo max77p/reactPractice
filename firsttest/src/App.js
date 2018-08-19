@@ -21,20 +21,7 @@ class App extends Component {//extends means to inherit from component
     showPersons:false
   } //state managed from inside a component
 
-  switchNameHandler=(newName)=>{
-    // console.log("test");
-    this.setState({ persons: [
-      {
-        name:newName,age:28
-      },
-      {
-        name:'Manau',age:20
-      },
-      {
-        name:'Moses',age:27
-      }
-    ]})//setstate takes object as argument
-  }
+
 
   nameChangedHandler=(event)=>{
     this.setState({ persons: [
@@ -50,6 +37,11 @@ class App extends Component {//extends means to inherit from component
     ]})
   }
 
+  deletePersonHandler=(personIndex)=>{
+    const persons=[...this.state.persons];
+    persons.splice(personIndex,1);
+    this.setState({persons:persons})
+  }
 
 togglePerson=()=>{
 const doesShow=this.state.showPersons;
@@ -70,7 +62,13 @@ this.setState({showPersons: !doesShow})
     if(this.state.showPersons){
         persons = (
                   <div>
-                    <Person 
+                    {this.state.persons.map((person,index)=>{
+                      return <Person 
+                      click={()=>this.deletePersonHandler(index)}
+                      name={person.name} 
+                      age={person.age}/>
+                    })}
+                    {/* <Person 
                     name={this.state.persons[0].name} 
                     age={this.state.persons[0].age}/>
                     <Person 
@@ -80,7 +78,7 @@ this.setState({showPersons: !doesShow})
                     changed={this.nameChangedHandler}>My hobbies: Racing</Person>
                     <Person 
                     name={this.state.persons[2].name} 
-                    age={this.state.persons[2].age}/>
+                    age={this.state.persons[2].age}/> */}
               </div>
         )
     }
