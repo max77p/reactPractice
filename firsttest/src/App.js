@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
 
+
 class App extends Component {//extends means to inherit from component
   state={
     persons: [
@@ -55,10 +56,12 @@ this.setState({showPersons: !doesShow})
 
   render() {
     const style={
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color:'white',
       font:'inherit',
       border:'1px solid blue',
-      padding:'8px'
+      padding:'8px',
+    
     };
 
     let persons=null;
@@ -74,28 +77,31 @@ this.setState({showPersons: !doesShow})
                       key={person.id}
                       changed={(event)=>this.nameChangedHandler(event,person.id)}/>
                     })}
-                    {/* <Person 
-                    name={this.state.persons[0].name} 
-                    age={this.state.persons[0].age}/>
-                    <Person 
-                    name={this.state.persons[1].name} 
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this,'maxisguy')}
-                    changed={this.nameChangedHandler}>My hobbies: Racing</Person>
-                    <Person 
-                    name={this.state.persons[2].name} 
-                    age={this.state.persons[2].age}/> */}
               </div>
-        )
+        );
+
+        style.backgroundColor='red';
+       
     }
+    let classes = [];
+    if(this.state.persons.length<=2){
+      classes.push('red');//classes is red
+    }
+    if (this.state.persons.length<=1){
+      classes.push('bold');
+    }
+
     return (
-      <div className="App">
+    
+
+   <div className="App">
        <h1>Hi, Im a react dev</h1>
-       <h1>another heading</h1>
+       <p className={classes.join(' ')}>another heading</p>
        <button  style={style}
        onClick={this.togglePerson}>swtich Name</button>
       {persons}
       </div>
+        
     );
   }
 }
