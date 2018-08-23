@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 
@@ -32,7 +32,7 @@ class App extends Component {//extends means to inherit from component
     const person={
      ...this.state.persons[personIndex]// spread operator distributes all the props in this object
     }
-    console.log(persons);
+    console.log(person);
 
     person.name=event.target.value;
 
@@ -55,16 +55,9 @@ this.setState({showPersons: !doesShow})
 
 
   render() {
-    const style={
-      backgroundColor: 'green',
-      color:'white',
-      font:'inherit',
-      border:'1px solid blue',
-      padding:'8px',
-    
-    };
 
     let persons=null;
+    let btnClass='';
 
     if(this.state.showPersons){
         persons = (
@@ -79,25 +72,26 @@ this.setState({showPersons: !doesShow})
                     })}
               </div>
         );
-
-        style.backgroundColor='red';
+        btnClass=classes.Red;
+        console.log(classes);
        
     }
-    let classes = [];
+    let assignClasses = [];
     if(this.state.persons.length<=2){
-      classes.push('red');//classes is red
+      assignClasses.push(classes.red);//classes is red
     }
     if (this.state.persons.length<=1){
-      classes.push('bold');
+      assignClasses.push(classes.bold);
     }
 
     return (
     
 
-   <div className="App">
+   <div className={classes.App}>
        <h1>Hi, Im a react dev</h1>
-       <p className={classes.join(' ')}>another heading</p>
-       <button  style={style}
+       <p className={assignClasses.join(' ')}>another heading</p>
+       <button 
+       className={btnClass}
        onClick={this.togglePerson}>swtich Name</button>
       {persons}
       </div>
