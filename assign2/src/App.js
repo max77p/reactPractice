@@ -35,8 +35,6 @@ class App extends Component {
       <Dogs textlength={this.state.userInput.length}></Dogs>
       
       {charlist}
-      
-      
       </div>
     );
   }
